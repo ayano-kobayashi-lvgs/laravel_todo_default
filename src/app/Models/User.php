@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\Role;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * User
@@ -19,7 +19,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
     ];
 
     /**
@@ -42,17 +41,9 @@ class User extends Authenticatable
     ];
 
     /**
-     * 管理者権限の判断ロジック
-     */
-    public function isAdmin(): bool
-    {
-        return Role::isAdmin($this->role);
-    }
-
-    /**
      * ユーザ登録処理
      */
-    public function create(array $values): mixed
+    public function create(array $values)
     {
         return parent::create($values);
     }

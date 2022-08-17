@@ -19,8 +19,7 @@ class TodoController extends Controller
      */
     public function __construct(
         public Todo $todo,
-    ) {
-    }
+    ) {}
 
     /**
      * 一覧ページ表示
@@ -28,7 +27,7 @@ class TodoController extends Controller
      * @return View
      */
     public function index(): View
-    {
+    {   
         $todos = $this->todo->all();
 
         return view('todo.index', compact('todos'));
@@ -97,7 +96,7 @@ class TodoController extends Controller
     {
         $this->todo->updateTodo($id, $request->all(['title']));
         $todo = $this->todo->getById($id);
-
+        
         return redirect()->route('todos.index')->with(
             'status',
             "{$todo->title}を更新しました",
@@ -110,7 +109,7 @@ class TodoController extends Controller
      * @param  int  $id
      * @return RedirectResponse
      */
-    public function delete(Request $request, int $id): RedirectResponse
+    public function delete($id): RedirectResponse
     {
         $todo = $this->todo->getById($id);
         $todo->delete();
